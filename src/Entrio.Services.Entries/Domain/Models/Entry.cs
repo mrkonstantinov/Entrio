@@ -18,8 +18,9 @@ namespace Entrio.Services.Entries.Domain.Models
         {
 
         }
-        public Entry(Guid id, Guid userId, string currency, string timeframe,
-        IEnumerable<string> indicators, string name, string description, DateTime createdAt)
+        public Entry(Guid id, Guid userId, 
+                    string currency, string timeframe, IEnumerable<string> indicators, 
+                    string name, string description, DateTime createdAt)
         {
             Id = id;
             UserId = userId;
