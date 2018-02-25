@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Entrio.Api.Handlers;
+using Entrio.Api.Repositories;
+using Entrio.Common.Events;
+using Entrio.Common.Mongo;
+using Entrio.Common.RabbitMq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,6 +29,11 @@ namespace Entrio.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //services.AddJwt(Configuration);
+            services.AddRabbitMq(Configuration);
+            services.AddMongoDB(Configuration);
+            services.AddScoped<IEventHandler<EntryCreated>, EntryCreatedHandler>();
+            services.AddScoped<IEntryRepository, EntryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,7 +43,8 @@ namespace Entrio.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

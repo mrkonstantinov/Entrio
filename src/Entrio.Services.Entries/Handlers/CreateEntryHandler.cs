@@ -35,7 +35,7 @@ namespace Actio.Services.Activities.Handlers
                 await _busClient.PublishAsync(new EntryCreated(command.Id, command.UserId,
                     command.Currency, command.Timeframe, command.Indicators,
                     command.Name, command.Description, command.CreatedAt));
-                _logger.LogInformation($"Activity: '{command.Id}' was created for user: '{command.UserId}'.");
+                _logger.LogInformation($"Entry: '{command.Id}' was created for user: '{command.UserId}'.");
 
                 return;
             }
