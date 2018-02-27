@@ -7,7 +7,7 @@ using Entrio.Services.Activities.Services;
 using Microsoft.Extensions.Logging;
 using RawRabbit;
 
-namespace Actio.Services.Activities.Handlers
+namespace Entrio.Services.Activities.Handlers
 {
     public class CreateEnytryHandler : ICommandHandler<CreateEntry>
     {
