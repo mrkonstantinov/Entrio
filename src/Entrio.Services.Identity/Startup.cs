@@ -30,7 +30,7 @@ namespace Entrio.Services.Identity
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddLogging();
@@ -41,6 +41,9 @@ namespace Entrio.Services.Identity
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IEncrypter, Encrypter>();
+
+            // Build the intermediate service provider then return it
+            return services.BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +54,7 @@ namespace Entrio.Services.Identity
                 app.UseDeveloperExceptionPage();
             }
             app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
-            app.UseMvc();
-        }
+            app.UseMvc(); 
+        }      
     }
 }

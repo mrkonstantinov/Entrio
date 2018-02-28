@@ -48,10 +48,7 @@ namespace Entrio.Api
                 app.UseDeveloperExceptionPage();
             }
 
-//resolve dependencies
-             serviceProvider.GetService<IDatabaseInitializer>().InitializeAsync();
-
-            //app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
+            app.ApplicationServices.GetService<IDatabaseInitializer>().InitializeAsync();
             app.UseAuthentication();
             app.UseMvc();
         }
